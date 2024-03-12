@@ -29,6 +29,9 @@ public class Move : MonoBehaviour
     private LayerMask groundMask;
 
     [SerializeField]
+    private SpriteRenderer sprite;
+
+    [SerializeField]
     private float turnSmoothTime;
 
     private float turnSmoothVelocity;
@@ -54,6 +57,20 @@ public class Move : MonoBehaviour
 
     private void OnMoveChanged(Vector2 obj)
     {
+
+        if(obj.x < 0)
+        {
+
+            sprite.flipX = false;
+
+        }
+        else if(obj.x > 0)
+        {
+
+            sprite.flipX = true;
+
+        }
+
         movementDirection = new Vector3(obj.x, 0, obj.y);
         //Debug.Log(Vector3.Dot(movementDirection, lastDirection));
         //if (Vector3.Dot(movementDirection, lastDirection) <= 0.75f)

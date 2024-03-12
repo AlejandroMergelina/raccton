@@ -42,7 +42,7 @@ public class DialogueTrigger : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
-
+            print("en area");
             playerInRange = true;
 
         }

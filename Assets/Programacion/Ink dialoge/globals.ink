@@ -1,0 +1,1 @@
+VAR itemcubo1 = true
