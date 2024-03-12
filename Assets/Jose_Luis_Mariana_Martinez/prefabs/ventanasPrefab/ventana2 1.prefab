@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2997351954297120801}
   - component: {fileID: 1043793812362829035}
   m_Layer: 0
-  m_Name: ventana2
+  m_Name: ventana2 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 07073ece9aa6ee94185d37a36dabf6b5, type: 2}
+  - {fileID: 2100000, guid: 0c4017556acb39946a1d5f363fadd08f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
