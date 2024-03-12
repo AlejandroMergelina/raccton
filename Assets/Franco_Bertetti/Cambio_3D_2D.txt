@@ -1,0 +1,8 @@
+Hola Fernando,
+
+No recuerdo si te lo hemos llegado a comentar en clase o no, pero hemos decidido cambiar el formato de los personajes de 3D a 2D ya que consideramos que de esta forma podríamos avanzar de forma más rápida y no afectaría a la estetica final del juego. Por lo tanto todas las animaciones y elementos del HUD los voy a realizar en 2D.
+
+En esta carpeta vas a encontrar el trabajo descartado en el que estuve trabajando, allí se encuentran: el modelo final de uno de los protagonistas, el modelado casi finalizado del otro protagonista, los props que estos utilizarían y el blockout de un enemigo.
+
+Saludos.
+
