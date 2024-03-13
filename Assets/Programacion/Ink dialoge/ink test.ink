@@ -1,14 +1,14 @@
 INCLUDE globals.ink
 EXTERNAL PickUpItem()
 
-{itemcubo1 == "": ->full | ->Empty}
+{itemcubo1 == true: ->full | ->Empty}
 
 
 
 === full ===
 Habia algo en la papelera#speaker:narrador#audio:beep_1
 
-->EJEMPLO("mal")
+->EJEMPLO(false)
 
 
 
