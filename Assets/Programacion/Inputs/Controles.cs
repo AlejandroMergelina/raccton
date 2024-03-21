@@ -213,15 +213,6 @@ public partial class @Controles : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ActionP2"",
-                    ""type"": ""Button"",
-                    ""id"": ""285eecab-1213-45e8-a475-ab2aca2eb724"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -233,17 +224,6 @@ public partial class @Controles : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ActionP1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""dde404e4-34ef-4e0d-94cc-fc8358b0d2d2"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ActionP2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -394,6 +374,67 @@ public partial class @Controles : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""DocAttack"",
+            ""id"": ""cb0006a1-b451-49a3-b7dd-0752f1dd45c1"",
+            ""actions"": [
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""4ac93251-97bd-4387-95cb-84a7cccd6fff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""43511b56-2c3c-41b1-bc67-9feabf8c4d8f"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44fa338b-6e4e-4850-98df-cc0c0993071e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a7bd0337-bc66-4e94-ae3e-4110ea5ff6b9"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c2cba9c7-0727-4fe6-a0f3-f544a0e60e97"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -429,7 +470,6 @@ public partial class @Controles : IInputActionCollection2, IDisposable
         // CombatMode
         m_CombatMode = asset.FindActionMap("CombatMode", throwIfNotFound: true);
         m_CombatMode_ActionP1 = m_CombatMode.FindAction("ActionP1", throwIfNotFound: true);
-        m_CombatMode_ActionP2 = m_CombatMode.FindAction("ActionP2", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Pumpum = m_Menu.FindAction("Pumpum", throwIfNotFound: true);
@@ -441,6 +481,9 @@ public partial class @Controles : IInputActionCollection2, IDisposable
         m_DialogueMode = asset.FindActionMap("DialogueMode", throwIfNotFound: true);
         m_DialogueMode_NextLine = m_DialogueMode.FindAction("NextLine", throwIfNotFound: true);
         m_DialogueMode_Move = m_DialogueMode.FindAction("Move", throwIfNotFound: true);
+        // DocAttack
+        m_DocAttack = asset.FindActionMap("DocAttack", throwIfNotFound: true);
+        m_DocAttack_Attack = m_DocAttack.FindAction("Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -550,13 +593,11 @@ public partial class @Controles : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_CombatMode;
     private ICombatModeActions m_CombatModeActionsCallbackInterface;
     private readonly InputAction m_CombatMode_ActionP1;
-    private readonly InputAction m_CombatMode_ActionP2;
     public struct CombatModeActions
     {
         private @Controles m_Wrapper;
         public CombatModeActions(@Controles wrapper) { m_Wrapper = wrapper; }
         public InputAction @ActionP1 => m_Wrapper.m_CombatMode_ActionP1;
-        public InputAction @ActionP2 => m_Wrapper.m_CombatMode_ActionP2;
         public InputActionMap Get() { return m_Wrapper.m_CombatMode; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -569,9 +610,6 @@ public partial class @Controles : IInputActionCollection2, IDisposable
                 @ActionP1.started -= m_Wrapper.m_CombatModeActionsCallbackInterface.OnActionP1;
                 @ActionP1.performed -= m_Wrapper.m_CombatModeActionsCallbackInterface.OnActionP1;
                 @ActionP1.canceled -= m_Wrapper.m_CombatModeActionsCallbackInterface.OnActionP1;
-                @ActionP2.started -= m_Wrapper.m_CombatModeActionsCallbackInterface.OnActionP2;
-                @ActionP2.performed -= m_Wrapper.m_CombatModeActionsCallbackInterface.OnActionP2;
-                @ActionP2.canceled -= m_Wrapper.m_CombatModeActionsCallbackInterface.OnActionP2;
             }
             m_Wrapper.m_CombatModeActionsCallbackInterface = instance;
             if (instance != null)
@@ -579,9 +617,6 @@ public partial class @Controles : IInputActionCollection2, IDisposable
                 @ActionP1.started += instance.OnActionP1;
                 @ActionP1.performed += instance.OnActionP1;
                 @ActionP1.canceled += instance.OnActionP1;
-                @ActionP2.started += instance.OnActionP2;
-                @ActionP2.performed += instance.OnActionP2;
-                @ActionP2.canceled += instance.OnActionP2;
             }
         }
     }
@@ -701,6 +736,39 @@ public partial class @Controles : IInputActionCollection2, IDisposable
         }
     }
     public DialogueModeActions @DialogueMode => new DialogueModeActions(this);
+
+    // DocAttack
+    private readonly InputActionMap m_DocAttack;
+    private IDocAttackActions m_DocAttackActionsCallbackInterface;
+    private readonly InputAction m_DocAttack_Attack;
+    public struct DocAttackActions
+    {
+        private @Controles m_Wrapper;
+        public DocAttackActions(@Controles wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Attack => m_Wrapper.m_DocAttack_Attack;
+        public InputActionMap Get() { return m_Wrapper.m_DocAttack; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DocAttackActions set) { return set.Get(); }
+        public void SetCallbacks(IDocAttackActions instance)
+        {
+            if (m_Wrapper.m_DocAttackActionsCallbackInterface != null)
+            {
+                @Attack.started -= m_Wrapper.m_DocAttackActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_DocAttackActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_DocAttackActionsCallbackInterface.OnAttack;
+            }
+            m_Wrapper.m_DocAttackActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
+            }
+        }
+    }
+    public DocAttackActions @DocAttack => new DocAttackActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -728,7 +796,6 @@ public partial class @Controles : IInputActionCollection2, IDisposable
     public interface ICombatModeActions
     {
         void OnActionP1(InputAction.CallbackContext context);
-        void OnActionP2(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {
@@ -743,5 +810,9 @@ public partial class @Controles : IInputActionCollection2, IDisposable
     {
         void OnNextLine(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+    }
+    public interface IDocAttackActions
+    {
+        void OnAttack(InputAction.CallbackContext context);
     }
 }

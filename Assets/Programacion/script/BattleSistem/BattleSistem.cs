@@ -50,7 +50,7 @@ public class BattleSistem : MonoBehaviour
     [SerializeField]
     int tusTurnos, turnosEnemigo;
 
-    public static BattleSistem Instance;
+    //public static BattleSistem Instance;
 
     private void OnEnable()
     {
@@ -67,20 +67,6 @@ public class BattleSistem : MonoBehaviour
 
         StartCoroutine(SetupBattle());
 
-        if (Instance != null && Instance != this)
-        {
-
-            Destroy(this);
-
-        }
-        else
-        {
-
-            Instance = this;
-            DontDestroyOnLoad(this);
-
-        }
-
     }
 
     IEnumerator SetupBattle()
@@ -93,7 +79,7 @@ public class BattleSistem : MonoBehaviour
             EnemyCharacter clonInf = clon.GetComponent<EnemyCharacter>();
             EnemyCharacters.Add(i,clonInf);
             clonInf.SetID(i);
-            
+            clonInf.BattleSistem = this;
 
         }
 
@@ -106,7 +92,7 @@ public class BattleSistem : MonoBehaviour
             MainCharactersAlive.Add(i,clonInf);
             MainCharacters.Add(i,clonInf);
             clonInf.SetID(i);
-
+            clonInf.BattleSistem = this;
 
 
         }

@@ -102,7 +102,7 @@ public class EnemyCharacter : Character
     protected override void FinishAnimationAtack()
     {
 
-        BattleSistem.Instance.CheckLive("Main");
+        battleSistem.CheckLive("Main");
 
 
     }

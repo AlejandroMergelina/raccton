@@ -31,11 +31,7 @@ public class MainCharacter : Character
     protected InputManager inputManager;
        
 
-    protected void OnAction()
-    {
 
-        animator.SetBool("attack", true);
-    }
 
     protected void OnDoge()
     {
@@ -92,7 +88,7 @@ public class MainCharacter : Character
         start = initialPosition;
 
         canMove = true;
-        animator.SetBool("move", canMove);
+        animator.SetBool("IsWallkig", canMove);
 
     }
 
@@ -102,12 +98,12 @@ public class MainCharacter : Character
         Vector3 direction = end - start;
 
         transform.position += direction.normalized * Time.deltaTime * 3;
-
+        
         if (transform.position.x >= end.x && Mathf.Sign(direction.x) == 1)
         {
-
+            print("entro");
             canMove = false;
-            animator.SetBool("move", canMove);
+            animator.SetBool("IsWallkig", canMove);
             canAttack = true;
             /*if (transform.position.x >= targetPosition.x)
             {
@@ -119,9 +115,9 @@ public class MainCharacter : Character
         }
         else if (transform.position.x <= end.x && Mathf.Sign(direction.x) == -1)
         {
-
+            
             canMove = false;
-            animator.SetBool("move", canMove);
+            animator.SetBool("IsWallkig", canMove);
 
 
 
@@ -147,7 +143,7 @@ public class MainCharacter : Character
     protected override void FinishAnimationAtack()
     {
 
-        BattleSistem.Instance.CheckLive("Enemy");
+        battleSistem.CheckLive("Enemy");
 
     }
 

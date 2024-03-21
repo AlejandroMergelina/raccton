@@ -306,5 +306,20 @@ namespace Fiable
             
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+
+
+            other.GetComponent<Renderer>().enabled = false;
+
+        }
+        private void OnTriggerExit(Collider other)
+        {
+            print("hola");
+
+            other.GetComponent<Renderer>().enabled = true;
+
+        }
+
     }
 }

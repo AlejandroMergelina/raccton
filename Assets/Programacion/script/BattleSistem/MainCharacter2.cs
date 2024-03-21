@@ -6,36 +6,67 @@ public class MainCharacter2 : MainCharacter
 {
 
     //funcion de elejier tecla aleatoria
-    //funcion que seejecute al llamar aesa tecka
 
-    private KeyCode currentRandomKey;
 
+
+    [SerializeField]
     private KeyCode[] key2Select;
+    private string currentRandomKey;
 
-    protected override void Update()
+    [SerializeField]
+    private GameObject objects2Throw;
+
+    [SerializeField]
+    private float attackTime;
+
+    private void OnEnable()
     {
-        base.Update();
-
-        if (canAttack && Input.GetKeyDown(currentRandomKey))
-        {
-            print("lanzo objeto");
-            currentRandomKey = RandomKey();
-
-        }
+        inputManager.OnAttackDocAction += Try2Throw;
+        inputManager.OnDogeMain1Action += OnDoge;
 
     }
+
 
     private void StaratAttack()
     {
+        inputManager.SwichActionMap(ActionMaps.DocAtack);
+        print("attack");
+        StartCoroutine(StartAtackTime());
+    }
 
-        currentRandomKey = RandomKey();
+    private void RandomKey()
+    {
+
+        currentRandomKey = key2Select[Random.Range(0, key2Select.Length)].ToString(); ;
 
     }
 
-    private KeyCode RandomKey()
+    private void Try2Throw(string key)
+    {
+        if (key == currentRandomKey)
+        {
+
+            //Throw
+            
+        }
+        else
+        {
+
+            //Fail
+
+        }
+
+        currentRandomKey = "";
+
+    }
+
+    private IEnumerator StartAtackTime()
     {
 
-        return key2Select[Random.Range(0, key2Select.Length)];
+
+        yield return new WaitForSeconds(attackTime);
+        inputManager.SwichActionMap(ActionMaps.CombatMode);
+        print("seacobo");
 
     }
 

@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum ActionMaps { MoveOut, CombatMode, Menu , Doge, DialogueMode}
+public enum ActionMaps { MoveOut, CombatMode, Menu , Doge, DialogueMode, DocAtack}
 
 [CreateAssetMenu(menuName = "InputManager")]
 public class InputManager : ScriptableObject
@@ -18,7 +18,8 @@ public class InputManager : ScriptableObject
 
 
     public event Action OnActionP1Action;
-    public event Action OnActionP2Action;
+
+    public event Action<string> OnAttackDocAction;
 
     public event Action OnDogeMain1Action;
     public event Action OnDogeMain2Action;
@@ -31,6 +32,7 @@ public class InputManager : ScriptableObject
         controls = new Controles();
 
         controls.MoveOut.Enable();
+        //controls.DocAttack.Enable();
 
         controls.MoveOut.RotateCamera.started += OnRotateCamera;
         controls.MoveOut.Move.performed += OnMoveFer;
@@ -39,7 +41,7 @@ public class InputManager : ScriptableObject
 
         //Suscripciones a eventos del ActionPnº.
         controls.CombatMode.ActionP1.started += OnActionP1;
-        controls.CombatMode.ActionP2.started += OnActionP2;
+        controls.DocAttack.Attack.started += OnAttackDoc;
 
         controls.Doge.Main1doge.started += OnDogeMain1;
 
@@ -81,23 +83,41 @@ public class InputManager : ScriptableObject
         OnRotateCameraAction?.Invoke();
     }
 
-    private void OnActionP2(InputAction.CallbackContext obj)
+    private void OnAttackDoc(InputAction.CallbackContext obj)
     {
-        OnActionP2Action?.Invoke();
+        
+        string bottomName = "";
+        bool ignore = false;
+        foreach(char character in obj.control.path)
+        {
+
+            if(character == '/')
+            {
+
+                ignore = ignore? false : true;
+
+            }
+
+            else if(ignore == false)
+            {
+
+                bottomName += character;
+
+            }
+
+        }
+        Debug.Log(bottomName);
+        OnAttackDocAction?.Invoke(bottomName);
 
     }
 
     private void OnActionP1(InputAction.CallbackContext obj)
     {
+        
+
         OnActionP1Action?.Invoke();
     }
 
-    //public Vector2 GetMoveValue()
-    //{
-    //    //OnActionP1Action?.Invoke();
-    //    //return controls.MoveOut.Move.ReadValue<Vector2>();
-
-    //}
 
     public float GetCameraRotateValue()
     {
@@ -116,6 +136,7 @@ public class InputManager : ScriptableObject
             controls.CombatMode.Disable();
             controls.Menu.Disable();
             controls.Doge.Disable();
+            controls.DocAttack.Disable();
             
 
         }
@@ -128,6 +149,7 @@ public class InputManager : ScriptableObject
             controls.MoveOut.Disable();
             controls.Menu.Disable();
             controls.Doge.Disable();
+            controls.DocAttack.Disable();
 
         }
         else if (actionMap == ActionMaps.Menu)
@@ -138,6 +160,7 @@ public class InputManager : ScriptableObject
             controls.MoveOut.Disable();
             controls.CombatMode.Disable();
             controls.Doge.Disable();
+            controls.DocAttack.Disable();
 
         }
         else if(actionMap == ActionMaps.Doge)
@@ -149,6 +172,7 @@ public class InputManager : ScriptableObject
             controls.MoveOut.Disable();
             controls.CombatMode.Disable();
             controls.Menu.Disable();
+            controls.DocAttack.Disable();
 
         }
         else if(actionMap == ActionMaps.DialogueMode)
@@ -156,6 +180,18 @@ public class InputManager : ScriptableObject
 
             controls.DialogueMode.Enable();
 
+            controls.MoveOut.Disable();
+            controls.CombatMode.Disable();
+            controls.Menu.Disable();
+            controls.Doge.Disable();
+            controls.DocAttack.Disable();
+        }
+        else if (actionMap == ActionMaps.DocAtack)
+        {
+
+            controls.DocAttack.Enable();
+
+            controls.DialogueMode.Disable();
             controls.MoveOut.Disable();
             controls.CombatMode.Disable();
             controls.Menu.Disable();

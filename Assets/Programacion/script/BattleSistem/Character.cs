@@ -12,6 +12,9 @@ public abstract class Character : MonoBehaviour
     protected CharacterSO characterData;
     public CharacterSO CharacterData { get => characterData; set => characterData = value; }
 
+    protected BattleSistem battleSistem;
+    public BattleSistem BattleSistem { get => battleSistem; set => battleSistem = value; }
+
     protected virtual void Start()
     {
 

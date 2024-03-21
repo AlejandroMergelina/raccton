@@ -19,6 +19,12 @@ public class MainCharacter1 : MainCharacter
         inputManager.OnDogeMain1Action += OnDoge;
     }
 
+    private  void OnAction()
+    {
+
+        animator.SetBool("attack", true);
+    }
+
     //protected override void Update()
     //{
     //    base.Update();
@@ -28,9 +34,9 @@ public class MainCharacter1 : MainCharacter
     //    //    print("entro");
     //    //    animator.SetBool("attack", true);
     //    //    canAttack = false;
-            
+
     //    //}
-        
+
     //}
 
     //Ejecutado desde evento de animación.
