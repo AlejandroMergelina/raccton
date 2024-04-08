@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MainCharacter2 : MainCharacter
 {
@@ -10,7 +11,7 @@ public class MainCharacter2 : MainCharacter
 
 
     [SerializeField]
-    private KeyCode[] key2Select;
+    private string[] key2Select;
     private string currentRandomKey;
 
     [SerializeField]
@@ -18,6 +19,13 @@ public class MainCharacter2 : MainCharacter
 
     [SerializeField]
     private float attackTime;
+    [SerializeField]
+    private float attackCoulddown;
+
+    [SerializeField]
+    private TMP_Text keyText;
+
+    private Coroutine call;
 
     private void OnEnable()
     {
@@ -27,17 +35,11 @@ public class MainCharacter2 : MainCharacter
     }
 
 
-    private void StaratAttack()
-    {
-        inputManager.SwichActionMap(ActionMaps.DocAtack);
-        print("attack");
-        StartCoroutine(StartAtackTime());
-    }
-
     private void RandomKey()
     {
 
-        currentRandomKey = key2Select[Random.Range(0, key2Select.Length)].ToString(); ;
+        currentRandomKey = key2Select[Random.Range(0, key2Select.Length)];
+        keyText.text = currentRandomKey;
 
     }
 
@@ -45,28 +47,67 @@ public class MainCharacter2 : MainCharacter
     {
         if (key == currentRandomKey)
         {
-
+            print("tirar");
+            animator.SetTrigger("Attack");
             //Throw
             
         }
         else
         {
-
+            print("fallar");
             //Fail
 
         }
-
+        
         currentRandomKey = "";
+        keyText.text = currentRandomKey;
+        StartAttackCoulddown();
 
     }
 
     private IEnumerator StartAtackTime()
     {
-
-
+        inputManager.SwichActionMap(ActionMaps.DocAtack);
+        print("attack");
+        StartAttackCoulddown();
         yield return new WaitForSeconds(attackTime);
         inputManager.SwichActionMap(ActionMaps.CombatMode);
+        StopCoroutine(call);
+        currentRandomKey = "";
+        keyText.text = currentRandomKey;
+        animator.SetTrigger("EndAttack");
+        print(initialPosition);
+        StartCoroutine(Move(transform.position, initialPosition));
         print("seacobo");
+
+    }
+
+    private void StartAttackCoulddown()
+    {
+        if(call != null)
+        {
+
+            StopCoroutine(call);
+
+        }
+        
+        call = StartCoroutine(AttackCoulddown());
+
+    }
+
+    private IEnumerator AttackCoulddown()
+    {
+
+        yield return new WaitForSeconds(attackCoulddown);
+        RandomKey();
+
+    }
+
+    private void Throw()
+    {
+
+        GameObject clon = Instantiate(objects2Throw, transform.position, transform.rotation);
+        clon.GetComponent<Rigidbody>().AddForce(Vector3.up * 10, ForceMode.Impulse);
 
     }
 

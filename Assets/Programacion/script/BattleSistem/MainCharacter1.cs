@@ -25,6 +25,21 @@ public class MainCharacter1 : MainCharacter
         animator.SetBool("attack", true);
     }
 
+    protected void Fall()
+    {
+
+        canAttack = false;
+
+        animator.SetBool("move", true);
+        animator.SetBool("attack", canAttack);
+
+        end = initialPosition;
+        start = transform.position;
+
+    }
+
+    
+
     //protected override void Update()
     //{
     //    base.Update();
@@ -51,9 +66,7 @@ public class MainCharacter1 : MainCharacter
             _enemy.GetComponent<EnemyCharacter>().TakeDamage(CharacterData.Power.GetValue());
             print(_enemy.GetComponent<EnemyCharacter>().GetHP());
         }
-
-        canMove = true;
-        animator.SetBool("move", canMove);
+        animator.SetBool("move", true);
         animator.SetBool("attack", canAttack);
 
         end = initialPosition;

@@ -127,6 +127,12 @@ namespace Fiable
             focusPosition += Vector3.forward * currentLookAheadZ;
             focusPosition += Vector3.right * currentLookAheadX;
             target = focusPosition;
+            if(focusArea.Velocity == Vector3.zero)
+            {
+
+
+
+            }
             Orbit();
             LookAtTheTarget();
         }

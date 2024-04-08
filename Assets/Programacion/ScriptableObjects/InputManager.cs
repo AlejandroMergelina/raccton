@@ -97,7 +97,6 @@ public class InputManager : ScriptableObject
                 ignore = ignore? false : true;
 
             }
-
             else if(ignore == false)
             {
 

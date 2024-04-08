@@ -323,13 +323,6 @@ public class BattleSistem : MonoBehaviour
     public void CheckLive(string rival)
     {
         Dictionary<int, Character> HelpDiccionary = new Dictionary<int, Character>();
-        
-        foreach (KeyValuePair<int, MainCharacter> main in MainCharactersAlive)
-        {
-
-            main.Value.SetCanDodge(false);
-
-        }
 
         int count = MainCharacters.Count;
         //foreach(KeyValuePair<int, MainCharacter> mainCh in MainCharacters)

@@ -19,7 +19,7 @@ public class MainCharacter : Character
     [SerializeField]
     protected float cooldDownDodge;
     private float currentCooldDownDodge;
-    protected bool canAttack, canMove, canDodge;
+    protected bool canAttack;//borrar
     //private bool goToEnemy;
 
     [SerializeField]
@@ -44,12 +44,6 @@ public class MainCharacter : Character
 
     }
 
-    public void SetCanDodge(bool canDodge)
-    {
-
-        this.canDodge = canDodge;
-
-    }
 
     protected override void Start()
     {
@@ -67,78 +61,61 @@ public class MainCharacter : Character
             currentCooldDownDodge -= Time.deltaTime;
 
         }
-
-        //if (Input.GetKeyDown(k) && currentCooldDownDodge <= 0 && canDodge)
-        //{
-        //    animator.SetTrigger("dodge");
-        //}
-
-        if (canMove)
-        {
-
-            Move(start, end);
-
-        }
     }
 
     public override void Attack(Character it)
     {
 
         targetPosition = end = it.transform.position - distanceToEnemy;
-        start = initialPosition;
 
-        canMove = true;
-        animator.SetBool("IsWallkig", canMove);
+        StartCoroutine(Move(transform.position, targetPosition = end = it.transform.position - distanceToEnemy));
+        animator.SetBool("IsWallkig", true);
 
     }
 
-    void Move(Vector3 start, Vector3 end)
+    protected IEnumerator Move(Vector3 start, Vector3 end)
     {
 
         Vector3 direction = end - start;
-
-        transform.position += direction.normalized * Time.deltaTime * 3;
-        
-        if (transform.position.x >= end.x && Mathf.Sign(direction.x) == 1)
+        bool canMove= true;
+        while (canMove)
         {
-            print("entro");
-            canMove = false;
-            animator.SetBool("IsWallkig", canMove);
-            canAttack = true;
-            /*if (transform.position.x >= targetPosition.x)
+
+            transform.position += direction.normalized * Time.deltaTime;
+
+            if (transform.position.x >= end.x && Mathf.Sign(direction.x) == 1)
+            {
+                print("entro");
+                canMove = false;
+                animator.SetBool("IsWallkig", canMove);
+                canAttack = true;
+                /*if (transform.position.x >= targetPosition.x)
+                {
+
+
+
+                }*/
+
+            }
+            else if (transform.position.x <= end.x && Mathf.Sign(direction.x) == -1)
             {
 
-                
-
-            }*/
-
-        }
-        else if (transform.position.x <= end.x && Mathf.Sign(direction.x) == -1)
-        {
-            
-            canMove = false;
-            animator.SetBool("IsWallkig", canMove);
+                canMove = false;
+                animator.SetBool("IsWallkig", canMove);
 
 
+
+            }
+
+            yield return null;
 
         }
+        
 
 
     }
 
-    protected void Fall()
-    {
 
-        canAttack = false;
-
-        canMove = true;
-        animator.SetBool("move", canMove);
-        animator.SetBool("attack", canAttack);
-
-        end = initialPosition;
-        start = transform.position;
-
-    }
 
     protected override void FinishAnimationAtack()
     {
