@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 namespace Fiable
 {
     public class CameraFollow : MonoBehaviour
     {
+        [SerializeField]
+        private TMP_Text debugText;
+
         //camera orbit
+        [SerializeField]
         private Vector3 target;
 
         [SerializeField]
@@ -22,8 +27,6 @@ namespace Fiable
 
         [SerializeField]
         private CharacterController controller;
-        [SerializeField]
-        private float verticalOffset;
         [SerializeField]
         private float lookAheadDstX;
         [SerializeField]
@@ -52,6 +55,10 @@ namespace Fiable
         private bool lookAheadStoppedX;
         private bool lookAheadStoppedZ;
 
+        [SerializeField]
+        private float time2Back;
+        private float timer;
+
         private void OnEnable()
         {
             inputManager.OnRotateCameraAction += ChangeAngle;
@@ -68,7 +75,7 @@ namespace Fiable
         private void LateUpdate()
         {
             focusArea.Update(controller.bounds);
-            Vector3 focusPosition = focusArea.Center + Vector3.forward * verticalOffset;
+            Vector3 focusPosition = focusArea.Center;
             //print("input: " + focusArea.Velocity + " / " + main.transform.forward);
             Vector3 currentInputDirection = main.transform.rotation * main.MovementDirection;
             if (focusArea.Velocity.x != 0)
@@ -121,31 +128,56 @@ namespace Fiable
 
             }
 
+            
+
+            if (focusArea.Velocity == Vector3.zero && lookAheadStoppedZ && lookAheadStoppedX)
+            {
+                
+                if(timer > 0)
+                {
+
+                    timer -= Time.deltaTime;
+
+                }        
+                else if(timer <= 0)
+                {
+                    //targetLookAheadX = 0;
+                    //targetLookAheadZ = 0;
+
+                    targetLookAheadX = main.transform.position.x - focusArea.Center.x;
+                    targetLookAheadZ = main.transform.position.z - focusArea.Center.z;
+
+                }
+
+            }
+            else
+            {
+
+                timer = time2Back;
+            }
+
             currentLookAheadX = Mathf.SmoothDamp(currentLookAheadX, targetLookAheadX, ref smoothLoockVelocityX, loockSmoothTimeX);
             currentLookAheadZ = Mathf.SmoothDamp(currentLookAheadZ, targetLookAheadZ, ref smoothLoockVelocityZ, loockSmoothTimeZ);
 
             focusPosition += Vector3.forward * currentLookAheadZ;
             focusPosition += Vector3.right * currentLookAheadX;
+
             target = focusPosition;
-            if(focusArea.Velocity == Vector3.zero)
-            {
+            debugText.text = target + "/" + targetLookAheadX +" , " + currentLookAheadZ;
 
-
-
-            }
             Orbit();
             LookAtTheTarget();
         }
 
-        //private void OnDrawGizmos()
-        //{
+        private void OnDrawGizmos()
+        {
 
-        //    Gizmos.color = new Color(1, 0, 0, .5f);
-        //    Gizmos.DrawCube(focusArea.Center, focusAreaSize);
-        //    Gizmos.color = Color.blue;
-        //    Gizmos.DrawSphere(target, 0.2f);
+            Gizmos.color = new Color(1, 0, 0, .5f);
+            Gizmos.DrawCube(focusArea.Center, focusAreaSize);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(target, 0.2f);
 
-        //}
+        }
 
         struct FocusArea
         {
@@ -321,7 +353,7 @@ namespace Fiable
         }
         private void OnTriggerExit(Collider other)
         {
-            print("hola");
+       
 
             other.GetComponent<Renderer>().enabled = true;
 
