@@ -1,8 +1,0 @@
-Controles WASD
-
-Interactuar: espacio
-
-En una de las papeleras hay un dialogo
-
-
-

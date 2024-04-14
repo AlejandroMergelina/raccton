@@ -1,5 +1,5 @@
 INCLUDE globals.ink
-EXTERNAL PickUpItem()
+EXTERNAL PickUpItem(Item, quantity)
 
 {itemcubo1 == true: ->full | ->Empty}
 
@@ -14,7 +14,8 @@ Habia algo en la papelera#speaker:narrador#audio:beep_1
 
 === EJEMPLO(chosen) ===
 ~ itemcubo1 = chosen
-~ PickUpItem()
+
+~ PickUpItem("Pocion de vida", 1)
 -> END
 
 === Empty ===

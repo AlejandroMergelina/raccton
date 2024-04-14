@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: Dialogue Manager
   m_EditorClassIdentifier: 
   loadGlobalsJSON: {fileID: 4900000, guid: dca90321a2082214aa29c76a78cb7623, type: 3}
+  inventory: {fileID: 11400000, guid: 70f76089b524f72439a449d8215068ab, type: 2}
+  items:
+  - {fileID: 11400000, guid: 31e3f03533507ea40bb98c37bbe6550e, type: 2}
+  - {fileID: 11400000, guid: ce13d70368a7b954a92b009f07cec5b5, type: 2}
+  - {fileID: 11400000, guid: 5c2f129d5331b1441bbfe34dfcf8a8c2, type: 2}
   inputManager: {fileID: 11400000, guid: 93d86641cda0e1d4492b2d6deb264733, type: 2}
